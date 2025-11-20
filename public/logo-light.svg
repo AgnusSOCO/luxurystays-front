@@ -1,0 +1,16 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Luxury Stays Logo - Light version for header -->
+  <g>
+    <!-- Icon -->
+    <path d="M10 15 L10 45 L30 45" stroke="#d4af37" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M15 20 L25 12 L35 20" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    
+    <!-- Text "LUXURY STAYS" -->
+    <text x="45" y="32" font-family="serif" font-size="18" font-weight="600" fill="#0f172a" letter-spacing="1">
+      LUXURY
+    </text>
+    <text x="45" y="48" font-family="serif" font-size="14" font-weight="400" fill="#64748b" letter-spacing="2">
+      STAYS
+    </text>
+  </g>
+</svg>
