@@ -356,20 +356,24 @@ export function PropertyDetail() {
           </div>
         )}
 
-        {/* Swipe Navigation - Mobile */}
+        {/* Arrow Navigation - Mobile */}
         {images.length > 1 && (
-          <div className="md:hidden absolute inset-0 z-10 flex">
+          <>
             <button
               onClick={previousImage}
-              className="flex-1 cursor-pointer"
+              className="md:hidden absolute left-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-slate-900 shadow-lg transition-all"
               aria-label="Previous image"
-            />
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
             <button
               onClick={nextImage}
-              className="flex-1 cursor-pointer"
+              className="md:hidden absolute right-2 top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-slate-900 shadow-lg transition-all"
               aria-label="Next image"
-            />
-          </div>
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
         )}
       </div>
 
