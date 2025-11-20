@@ -10,10 +10,12 @@ import { About } from './pages/About'
 import { PropertyDetail } from './pages/PropertyDetail'
 import { BookingPage } from './pages/BookingPage'
 import { ConfirmationPage } from './pages/ConfirmationPage'
+import { ScrollToTop } from './components/ScrollToTop'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
