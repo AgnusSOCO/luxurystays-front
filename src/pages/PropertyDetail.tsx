@@ -7,6 +7,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { CheckMarkIcon } from '../components/icons/LuxuryIcons';
+import { updatePageTitle, updateMetaDescription, updateOGTags, generatePropertyTitle, generatePropertyDescription, addStructuredData } from '../utils/seo';
 
 export function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -32,6 +33,44 @@ export function PropertyDetail() {
         const data = await guestyApi.getListingById(id);
         setListing(data);
         setError(null);
+        
+        const propertyName = data.title || data.nickname || 'Luxury Property';
+        const city = data.address?.city || 'Utah';
+        const title = generatePropertyTitle(propertyName, city);
+        const description = generatePropertyDescription(
+          propertyName,
+          data.bedrooms || 0,
+          data.bathrooms || 0,
+          data.accommodates || 0,
+          city
+        );
+        
+        updatePageTitle(title);
+        updateMetaDescription(description);
+        updateOGTags(title, description, data.picture?.original || data.pictures?.[0]?.original);
+        
+        addStructuredData({
+          "@context": "https://schema.org",
+          "@type": "LodgingBusiness",
+          "name": propertyName,
+          "description": data.publicDescription?.summary || description,
+          "image": data.pictures?.map(p => p.original) || [],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": data.address?.street || "",
+            "addressLocality": data.address?.city || "",
+            "addressRegion": data.address?.state || "UT",
+            "postalCode": data.address?.zipcode || "",
+            "addressCountry": "US"
+          },
+          "numberOfRooms": data.bedrooms,
+          "petsAllowed": data.amenities?.some(a => a.toLowerCase().includes('pet')) || false,
+          "amenityFeature": data.amenities?.slice(0, 10).map(amenity => ({
+            "@type": "LocationFeatureSpecification",
+            "name": amenity,
+            "value": true
+          })) || []
+        });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch listing');
         console.error('Error fetching listing:', err);

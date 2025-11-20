@@ -40,12 +40,12 @@ export const HeroSection: React.FC = () => {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-serif text-white mb-6 leading-tight drop-shadow-lg">
-                    Elevate Your <br />
-                    <span className="text-luxury-gradient italic">Property Experience</span>
+                    Utah's Premier <br />
+                    <span className="text-luxury-gradient italic">Luxury Vacation Rentals</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-                    We curate exceptional stays for discerning guests and provide effortless, high-yield management for luxury homeowners.
+                    Experience 5-star luxury properties with breathtaking mountain views, world-class amenities, and exceptional service. Book your dream getaway today.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -54,7 +54,7 @@ export const HeroSection: React.FC = () => {
                         className="btn-luxury min-w-[200px] h-14 text-lg rounded-full"
                         onClick={scrollToSearch}
                     >
-                        Explore Our Collection
+                        Book Your Stay Now
                     </Button>
                     <Link to="/management">
                         <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-zinc-300 border shadow-sm hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 px-8 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 min-w-[200px] h-14 text-lg rounded-full transition-all duration-300">

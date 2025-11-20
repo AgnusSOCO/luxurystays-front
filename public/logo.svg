@@ -1,0 +1,21 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Luxury background circle -->
+  <circle cx="256" cy="256" r="256" fill="#0f172a"/>
+  
+  <!-- Gold accent circle -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Stylized "L" for Luxury Stays -->
+  <path d="M180 160 L180 352 L300 352" stroke="#d4af37" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Stylized "S" integrated with house roof -->
+  <path d="M320 200 Q340 180 360 200 L360 240 Q340 220 320 240 L320 280 Q340 260 360 280 L360 320" stroke="#d4af37" stroke-width="12" stroke-linecap="round" fill="none"/>
+  
+  <!-- House roof accent -->
+  <path d="M200 180 L256 140 L312 180" stroke="#f4e4c1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  
+  <!-- Decorative dots -->
+  <circle cx="256" cy="380" r="4" fill="#d4af37"/>
+  <circle cx="240" cy="380" r="4" fill="#d4af37" opacity="0.6"/>
+  <circle cx="272" cy="380" r="4" fill="#d4af37" opacity="0.6"/>
+</svg>
