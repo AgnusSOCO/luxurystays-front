@@ -1,21 +1,18 @@
-
+import { Linkedin } from 'lucide-react';
 
 export const About = () => {
     const team = [
         {
-            name: "Sarah Jenkins",
-            role: "Founder & CEO",
-            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            name: "Jorge Cordero",
+            role: "CEO & Founder",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            linkedin: "https://www.linkedin.com/in/jorge-c-804a677/"
         },
         {
-            name: "Michael Ross",
-            role: "Head of Operations",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            name: "Elena Rodriguez",
-            role: "Director of Concierge",
-            image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+            name: "Juan Cordero",
+            role: "CTO",
+            image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            linkedin: "https://www.linkedin.com/in/juansoco/"
         }
     ];
 
@@ -54,7 +51,7 @@ export const About = () => {
                         </div>
                         <div className="relative">
                             <img
-                                src="https://images.unsplash.com/photo-1600596542815-2a4d9f875c59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                 alt="Luxury Interior"
                                 className="rounded-lg shadow-xl w-full h-64 object-cover transform translate-y-8"
                             />
@@ -72,7 +69,7 @@ export const About = () => {
                         <p className="text-slate-600">The dedicated professionals behind Luxury Stays Club.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
                         {team.map((member, index) => (
                             <div key={index} className="text-center group">
                                 <div className="relative w-64 h-64 mx-auto mb-6 rounded-full overflow-hidden border-4 border-slate-50 shadow-lg group-hover:border-luxury-gold transition-colors duration-300">
@@ -83,7 +80,18 @@ export const About = () => {
                                     />
                                 </div>
                                 <h3 className="text-2xl font-serif text-slate-900 mb-1">{member.name}</h3>
-                                <p className="text-luxury-gold font-medium uppercase tracking-wider text-sm">{member.role}</p>
+                                <p className="text-luxury-gold font-medium uppercase tracking-wider text-sm mb-3">{member.role}</p>
+                                {member.linkedin && (
+                                    <a
+                                        href={member.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 text-slate-600 hover:text-luxury-gold transition-colors"
+                                    >
+                                        <Linkedin className="h-5 w-5" />
+                                        <span className="text-sm font-medium">Connect on LinkedIn</span>
+                                    </a>
+                                )}
                             </div>
                         ))}
                     </div>
