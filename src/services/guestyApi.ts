@@ -104,6 +104,23 @@ class GuestyApiService {
       body: JSON.stringify(reservationData),
     });
   }
+
+  async createInstantReservation(reservationData: {
+    quoteId: string;
+    guest: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      phone: string;
+      country: string;
+    };
+    paymentMethodId: string;
+  }): Promise<any> {
+    return this.makeRequest<any>(`/api/reservations/quotes/${reservationData.quoteId}/instant`, {
+      method: 'POST',
+      body: JSON.stringify(reservationData),
+    });
+  }
 }
 
 export const guestyApi = new GuestyApiService();
