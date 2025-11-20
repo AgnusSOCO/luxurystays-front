@@ -123,7 +123,15 @@ export function PropertyDetail() {
   const handleProceedToBooking = () => {
     if (!quote) return;
     
-    alert('Booking functionality coming soon! Your quote has been calculated. In production, this would proceed to collect guest details and complete the reservation.');
+    navigate(`/property/${id}/book`, {
+      state: {
+        quote,
+        checkIn,
+        checkOut,
+        guests,
+        listing
+      }
+    });
   };
 
   // Helper function to safely extract quote data from Guesty's nested structure

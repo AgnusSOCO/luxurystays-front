@@ -8,6 +8,8 @@ import { Contact } from './pages/Contact'
 import { PropertyManagement } from './pages/PropertyManagement'
 import { About } from './pages/About'
 import { PropertyDetail } from './pages/PropertyDetail'
+import { BookingPage } from './pages/BookingPage'
+import { ConfirmationPage } from './pages/ConfirmationPage'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +21,8 @@ createRoot(document.getElementById('root')!).render(
           <Route path="management" element={<PropertyManagement />} />
           <Route path="about" element={<About />} />
           <Route path="property/:id" element={<PropertyDetail />} />
+          <Route path="property/:id/book" element={<BookingPage />} />
+          <Route path="booking/confirm/:reservationId" element={<ConfirmationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
