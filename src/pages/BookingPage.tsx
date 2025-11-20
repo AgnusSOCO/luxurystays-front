@@ -282,12 +282,21 @@ function BookingForm({ bookingState }: { bookingState: BookingState }) {
                       <CreditCard className="h-4 w-4" />
                       Payment Details *
                     </Label>
-                    <div className="bg-slate-50 border border-slate-200 rounded-md p-4">
-                      <CardElement 
-                        options={cardElementOptions}
-                        onChange={(e) => setCardComplete(e.complete)}
-                      />
-                    </div>
+                    {!stripe ? (
+                      <div className="bg-slate-50 border border-slate-200 rounded-md p-4 min-h-[48px] flex items-center justify-center">
+                        <div className="flex items-center gap-2 text-slate-500">
+                          <div className="animate-spin h-4 w-4 border-2 border-luxury-gold border-t-transparent rounded-full"></div>
+                          <span className="text-sm">Loading secure payment...</span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="bg-slate-50 border border-slate-200 rounded-md p-4 min-h-[48px]">
+                        <CardElement 
+                          options={cardElementOptions}
+                          onChange={(e) => setCardComplete(e.complete)}
+                        />
+                      </div>
+                    )}
                     <p className="text-xs text-slate-500 mt-2">
                       Your payment information is secure and encrypted. We use Stripe for payment processing.
                     </p>
@@ -329,7 +338,7 @@ function BookingForm({ bookingState }: { bookingState: BookingState }) {
                   disabled={loading || !stripe}
                   className="w-full btn-luxury h-14 text-lg mt-6"
                 >
-                  {loading ? 'Processing Payment...' : 'Complete Booking'}
+                  {loading ? 'Processing Payment...' : !stripe ? 'Loading...' : 'Complete Booking'}
                 </Button>
               </form>
             </div>
