@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { guestyApi } from '../../services/guestyApi';
 import type { GuestyListing } from '../../types/guesty';
-import { Search, MapPin, Users, Bed, Bath } from 'lucide-react';
+import { MapPin, Users, Bed, Bath } from 'lucide-react';
 import { Button } from '../ui/button';
-import { Input } from '../ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
 
@@ -13,19 +12,11 @@ export const ListingSection = () => {
     const [listings, setListings] = useState<GuestyListing[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [searchCity, setSearchCity] = useState('');
-    const [selectedBedrooms, setSelectedBedrooms] = useState<number | null>(null);
-    const [selectedGuests, setSelectedGuests] = useState<number | null>(null);
 
     const fetchListings = async () => {
         try {
             setLoading(true);
-            const params: any = { limit: 20 };
-            if (searchCity) params.city = searchCity;
-            if (selectedBedrooms) params.bedrooms = selectedBedrooms;
-            if (selectedGuests) params.occupancy = selectedGuests;
-
-            const response = await guestyApi.getListings(params);
+            const response = await guestyApi.getListings({ limit: 20 });
             setListings(response.results);
             setError(null);
         } catch (err) {
@@ -40,57 +31,12 @@ export const ListingSection = () => {
         fetchListings();
     }, []);
 
-    const handleSearch = () => {
-        fetchListings();
-    };
-
     return (
         <section id="listings" className="pb-24 pt-12 bg-slate-50 relative">
             <div className="container-luxury relative z-10">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-5xl font-serif mb-4 text-slate-900">Find Your Perfect Sanctuary</h2>
-                    <p className="text-lg text-slate-600">Explore our exclusive collection of luxury properties.</p>
-                </div>
-
-                {/* Search Bar */}
-                <div className="bg-white p-6 rounded-2xl shadow-xl border border-slate-100 mb-12 max-w-4xl mx-auto -mt-8 relative z-20">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div className="relative">
-                            <MapPin className="absolute left-3 top-3 h-5 w-5 text-luxury-gold" />
-                            <Input
-                                placeholder="City or Location"
-                                className="pl-10 h-12 border-slate-200 focus:border-luxury-gold focus:ring-luxury-gold"
-                                value={searchCity}
-                                onChange={(e) => setSearchCity(e.target.value)}
-                            />
-                        </div>
-                        <div className="relative">
-                            <Bed className="absolute left-3 top-3 h-5 w-5 text-luxury-gold" />
-                            <Input
-                                type="number"
-                                placeholder="Bedrooms"
-                                className="pl-10 h-12 border-slate-200 focus:border-luxury-gold focus:ring-luxury-gold"
-                                value={selectedBedrooms || ''}
-                                onChange={(e) => setSelectedBedrooms(e.target.value ? parseInt(e.target.value) : null)}
-                            />
-                        </div>
-                        <div className="relative">
-                            <Users className="absolute left-3 top-3 h-5 w-5 text-luxury-gold" />
-                            <Input
-                                type="number"
-                                placeholder="Guests"
-                                className="pl-10 h-12 border-slate-200 focus:border-luxury-gold focus:ring-luxury-gold"
-                                value={selectedGuests || ''}
-                                onChange={(e) => setSelectedGuests(e.target.value ? parseInt(e.target.value) : null)}
-                            />
-                        </div>
-                        <Button
-                            onClick={handleSearch}
-                            className="h-12 btn-luxury text-lg"
-                        >
-                            <Search className="mr-2 h-5 w-5" /> Search
-                        </Button>
-                    </div>
+                    <h2 className="text-4xl md:text-5xl font-serif mb-4 text-slate-900">Our Exclusive Properties</h2>
+                    <p className="text-lg text-slate-600">Discover Utah's finest luxury vacation rentals.</p>
                 </div>
 
                 {/* Listings Grid */}
@@ -104,19 +50,7 @@ export const ListingSection = () => {
                     </div>
                 ) : listings.length === 0 ? (
                     <div className="text-center text-slate-500 p-12 bg-slate-50 rounded-lg border border-slate-100">
-                        <p className="text-xl font-serif">No properties found matching your criteria.</p>
-                        <Button
-                            variant="link"
-                            onClick={() => {
-                                setSearchCity('');
-                                setSelectedBedrooms(null);
-                                setSelectedGuests(null);
-                                fetchListings();
-                            }}
-                            className="text-luxury-gold mt-2"
-                        >
-                            Clear Filters
-                        </Button>
+                        <p className="text-xl font-serif">No properties available at this time.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -142,32 +76,44 @@ export const ListingSection = () => {
                                         </Button>
                                     </div>
                                 </div>
-                                <CardHeader>
-                                    <div className="flex justify-between items-start">
+                                <CardHeader className="pb-3">
+                                    <div className="flex justify-between items-start mb-2">
                                         <CardTitle className="text-xl font-serif line-clamp-1 group-hover:text-luxury-gold transition-colors">
                                             {listing.title}
                                         </CardTitle>
                                     </div>
-                                    <div className="flex items-center text-slate-500 text-sm mt-1">
+                                    <div className="flex items-center text-slate-500 text-sm">
                                         <MapPin className="h-4 w-4 mr-1 text-luxury-gold" />
                                         {listing.address?.city}, {listing.address?.state}
                                     </div>
                                 </CardHeader>
-                                <CardContent>
-                                    <div className="flex justify-between items-center text-sm text-slate-600 border-t border-slate-100 pt-4">
-                                        <div className="flex items-center">
-                                            <Users className="h-4 w-4 mr-1.5 text-slate-400" />
-                                            {listing.accommodates} Guests
+                                <CardContent className="pt-0">
+                                    <div className="grid grid-cols-3 gap-3 mb-4">
+                                        <div className="flex flex-col items-center p-3 bg-slate-50 rounded-lg">
+                                            <Users className="h-5 w-5 text-luxury-gold mb-1" />
+                                            <span className="text-xs text-slate-500 uppercase tracking-wide">Guests</span>
+                                            <span className="text-lg font-bold text-slate-900">{listing.accommodates}</span>
                                         </div>
-                                        <div className="flex items-center">
-                                            <Bed className="h-4 w-4 mr-1.5 text-slate-400" />
-                                            {listing.bedrooms} Beds
+                                        <div className="flex flex-col items-center p-3 bg-slate-50 rounded-lg">
+                                            <Bed className="h-5 w-5 text-luxury-gold mb-1" />
+                                            <span className="text-xs text-slate-500 uppercase tracking-wide">Bedrooms</span>
+                                            <span className="text-lg font-bold text-slate-900">{listing.bedrooms}</span>
                                         </div>
-                                        <div className="flex items-center">
-                                            <Bath className="h-4 w-4 mr-1.5 text-slate-400" />
-                                            {listing.bathrooms} Baths
+                                        <div className="flex flex-col items-center p-3 bg-slate-50 rounded-lg">
+                                            <Bath className="h-5 w-5 text-luxury-gold mb-1" />
+                                            <span className="text-xs text-slate-500 uppercase tracking-wide">Bathrooms</span>
+                                            <span className="text-lg font-bold text-slate-900">{listing.bathrooms}</span>
                                         </div>
                                     </div>
+                                    {listing.prices?.basePrice && (
+                                        <div className="border-t border-slate-100 pt-3 flex justify-between items-center">
+                                            <span className="text-slate-500 text-sm">From</span>
+                                            <div className="text-right">
+                                                <span className="text-2xl font-bold text-slate-900">${listing.prices.basePrice}</span>
+                                                <span className="text-slate-500 text-sm ml-1">/ night</span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </CardContent>
                             </Card>
                         ))}

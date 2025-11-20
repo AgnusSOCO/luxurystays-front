@@ -1,12 +1,10 @@
 import { HeroSection } from '../components/landing/HeroSection';
 import { TrustStrip } from '../components/landing/TrustStrip';
 import { ListingSection } from '../components/landing/ListingSection';
-import { ServicesOverview } from '../components/landing/ServicesOverview';
+import { ThingsToDoSection } from '../components/landing/ThingsToDoSection';
 import { AboutSection } from '../components/landing/AboutSection';
-import { WhyChooseUs } from '../components/landing/WhyChooseUs';
 import { CommitmentSection } from '../components/landing/CommitmentSection';
 import { CTASection } from '../components/landing/CTASection';
-import { ComparisonGrid } from '../components/landing/ComparisonGrid';
 import { TestimonialSection } from '../components/landing/TestimonialSection';
 
 export const Home = () => {
@@ -15,15 +13,13 @@ export const Home = () => {
             <HeroSection />
             <TrustStrip />
 
-            {/* Booking Section - Moved up for better conversion */}
+            {/* Featured Properties */}
             <ListingSection />
 
-            <ServicesOverview />
-
-            <ComparisonGrid />
+            {/* Things to Do Near Our Properties */}
+            <ThingsToDoSection />
 
             <AboutSection />
-            <WhyChooseUs />
 
             <TestimonialSection />
 
