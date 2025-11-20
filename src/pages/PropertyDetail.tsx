@@ -21,6 +21,7 @@ export function PropertyDetail() {
   const [guests, setGuests] = useState(1);
   const [bookingLoading, setBookingLoading] = useState(false);
   const [quote, setQuote] = useState<any>(null);
+  const [quoteError, setQuoteError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -42,8 +43,47 @@ export function PropertyDetail() {
     fetchListing();
   }, [id]);
 
+  const validateDates = (): string | null => {
+    if (!checkIn || !checkOut) {
+      return 'Please select both check-in and check-out dates';
+    }
+
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkInDate < today) {
+      return 'Check-in date cannot be in the past';
+    }
+
+    if (checkOutDate <= checkInDate) {
+      return 'Check-out date must be after check-in date';
+    }
+
+    const nightsCount = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
+    if (nightsCount < 1) {
+      return 'Minimum stay is 1 night';
+    }
+
+    if (listing?.accommodates && guests > listing.accommodates) {
+      return `Maximum ${listing.accommodates} guests allowed for this property`;
+    }
+
+    return null;
+  };
+
   const handleGetQuote = async () => {
     if (!listing || !checkIn || !checkOut) return;
+    
+    setQuoteError(null);
+    setQuote(null);
+
+    const validationError = validateDates();
+    if (validationError) {
+      setQuoteError(validationError);
+      return;
+    }
 
     try {
       setBookingLoading(true);
@@ -54,12 +94,36 @@ export function PropertyDetail() {
         guests,
       });
       setQuote(quoteData);
+      setQuoteError(null);
     } catch (err) {
       console.error('Error getting quote:', err);
-      alert('Failed to get quote. Please try again.');
+      
+      let errorMessage = 'Unable to get price quote. Please try again.';
+      
+      if (err instanceof Error) {
+        const errorText = err.message;
+        
+        if (errorText.includes('LISTING_IS_NOT_AVAILABLE') || errorText.includes('not applicable')) {
+          errorMessage = 'These dates are not available due to booking restrictions (minimum nights, booking window, or rate plan rules). Please try different dates or contact support.';
+        } else if (errorText.includes('TOO_MANY_REQUESTS')) {
+          errorMessage = 'Too many requests. Please wait a moment and try again.';
+        } else if (errorText.includes('400')) {
+          errorMessage = 'Invalid booking request. Please check your dates and try again.';
+        } else if (errorText.includes('404')) {
+          errorMessage = 'Property not found. Please return to the listings page.';
+        }
+      }
+      
+      setQuoteError(errorMessage);
     } finally {
       setBookingLoading(false);
     }
+  };
+
+  const handleProceedToBooking = () => {
+    if (!quote) return;
+    
+    alert('Booking functionality coming soon! Your quote has been calculated. In production, this would proceed to collect guest details and complete the reservation.');
   };
 
   if (loading) {
@@ -297,6 +361,18 @@ export function PropertyDetail() {
                 You won't be charged yet
               </p>
 
+              {quoteError && (
+                <div className="bg-red-50 border border-red-200 p-4 rounded-xl mb-6 animate-fade-in">
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl">⚠️</div>
+                    <div>
+                      <h4 className="font-bold text-red-900 mb-1">Unable to Get Quote</h4>
+                      <p className="text-red-800 text-sm leading-relaxed">{quoteError}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {quote && (
                 <div className="bg-slate-50 p-4 rounded-xl space-y-3 animate-fade-in">
                   <div className="flex justify-between text-slate-600">
@@ -311,7 +387,10 @@ export function PropertyDetail() {
                     <span>Total</span>
                     <span>${quote.money?.totalPrice}</span>
                   </div>
-                  <Button className="w-full btn-luxury mt-4">
+                  <Button 
+                    onClick={handleProceedToBooking}
+                    className="w-full btn-luxury mt-4"
+                  >
                     Reserve Now
                   </Button>
                 </div>
