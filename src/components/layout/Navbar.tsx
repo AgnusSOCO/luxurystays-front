@@ -51,11 +51,6 @@ export const Navbar: React.FC = () => {
                     <Link to="/contact" className="text-slate-200 hover:text-luxury-gold transition-colors font-medium text-sm tracking-wide">
                         CONTACT
                     </Link>
-                    <Link to="/management">
-                        <Button className="bg-luxury-gold hover:bg-yellow-600 text-slate-900 font-bold px-6 rounded-full">
-                            OWNER LOGIN
-                        </Button>
-                    </Link>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -74,11 +69,6 @@ export const Navbar: React.FC = () => {
                     <Link to="/about" className="text-slate-200 hover:text-luxury-gold py-2">ABOUT</Link>
                     <Link to="/management" className="text-slate-200 hover:text-luxury-gold py-2">MANAGEMENT</Link>
                     <Link to="/contact" className="text-slate-200 hover:text-luxury-gold py-2">CONTACT</Link>
-                    <Link to="/management">
-                        <Button className="bg-luxury-gold hover:bg-yellow-600 text-slate-900 font-bold w-full">
-                            OWNER LOGIN
-                        </Button>
-                    </Link>
                 </div>
             )}
         </nav>
