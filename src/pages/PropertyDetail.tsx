@@ -126,6 +126,36 @@ export function PropertyDetail() {
     alert('Booking functionality coming soon! Your quote has been calculated. In production, this would proceed to collect guest details and complete the reservation.');
   };
 
+  // Helper function to safely extract quote data from Guesty's nested structure
+  const getQuoteData = () => {
+    if (!quote) return null;
+
+    const ratePlan = quote.rates?.ratePlans?.[0]?.ratePlan;
+    const money = ratePlan?.money;
+    const days = quote.rates?.ratePlans?.[0]?.days || [];
+
+    const nightsCount = days.length;
+
+    const fareAccommodation = money?.fareAccommodation || 0;
+    const fareCleaning = money?.fareCleaning || 0;
+    const subTotal = money?.subTotalPrice || fareAccommodation + fareCleaning;
+    const taxes = money?.totalTaxes || 0;
+    const total = subTotal + taxes;
+    const currency = money?.currency || 'USD';
+
+    return {
+      nightsCount,
+      fareAccommodation,
+      fareCleaning,
+      subTotal,
+      taxes,
+      total,
+      currency
+    };
+  };
+
+  const quoteData = getQuoteData();
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
@@ -373,19 +403,27 @@ export function PropertyDetail() {
                 </div>
               )}
 
-              {quote && (
+              {quote && quoteData && (
                 <div className="bg-slate-50 p-4 rounded-xl space-y-3 animate-fade-in">
                   <div className="flex justify-between text-slate-600">
-                    <span>${listing.prices?.basePrice} x {quote.nightsCount} nights</span>
-                    <span>${quote.money?.fareAccommodation}</span>
+                    <span>${listing.prices?.basePrice} x {quoteData.nightsCount} nights</span>
+                    <span>${quoteData.fareAccommodation.toLocaleString()}</span>
                   </div>
-                  <div className="flex justify-between text-slate-600">
-                    <span>Cleaning fee</span>
-                    <span>${quote.money?.cleaningFee}</span>
-                  </div>
+                  {quoteData.fareCleaning > 0 && (
+                    <div className="flex justify-between text-slate-600">
+                      <span>Cleaning fee</span>
+                      <span>${quoteData.fareCleaning.toLocaleString()}</span>
+                    </div>
+                  )}
+                  {quoteData.taxes > 0 && (
+                    <div className="flex justify-between text-slate-600">
+                      <span>Taxes</span>
+                      <span>${quoteData.taxes.toLocaleString()}</span>
+                    </div>
+                  )}
                   <div className="pt-3 border-t border-slate-200 flex justify-between font-bold text-slate-900 text-lg">
                     <span>Total</span>
-                    <span>${quote.money?.totalPrice}</span>
+                    <span>${quoteData.total.toLocaleString()} {quoteData.currency}</span>
                   </div>
                   <Button 
                     onClick={handleProceedToBooking}
