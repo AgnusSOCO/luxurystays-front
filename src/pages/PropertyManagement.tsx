@@ -3,6 +3,9 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { CheckMarkIcon } from '../components/icons/LuxuryIcons';
+import { ServicesOverview } from '../components/landing/ServicesOverview';
+import { ComparisonGrid } from '../components/landing/ComparisonGrid';
+import { WhyChooseUs } from '../components/landing/WhyChooseUs';
 
 export const PropertyManagement = () => {
     const handleSubmit = (e: React.FormEvent) => {
@@ -37,9 +40,18 @@ export const PropertyManagement = () => {
                         We handle every detail, ensuring maximum returns and peace of mind.
                     </p>
                 </div>
-
             </section>
 
+            {/* Services Overview */}
+            <ServicesOverview />
+
+            {/* Why Choose Us */}
+            <WhyChooseUs />
+
+            {/* Comparison Grid */}
+            <ComparisonGrid />
+
+            {/* Contact Form Section */}
             <section className="py-24 bg-slate-50">
                 <div className="container-luxury">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
