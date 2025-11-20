@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { guestyApi } from '../services/guestyApi';
 import type { GuestyListing } from '../types/guesty';
-import { MapPin, Users, Bed, Bath, ArrowLeft, Calendar, Star, Share2, Heart, Wifi, Car, Coffee, Tv } from 'lucide-react';
+import { MapPin, Users, Bed, Bath, ArrowLeft, Calendar, Star, Share2, Heart, Wifi, Car, Coffee, Tv, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -244,6 +244,14 @@ export function PropertyDetail() {
     return CheckMarkIcon;
   };
 
+  const nextImage = () => {
+    setSelectedImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const previousImage = () => {
+    setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
     <div className="min-h-screen bg-white pb-24">
       {/* Hero Image Gallery */}
@@ -252,7 +260,7 @@ export function PropertyDetail() {
           <img
             src={currentImage.original}
             alt={listing.title}
-            className="w-full h-full object-cover transition-transform duration-700"
+            className="w-full h-full object-cover transition-opacity duration-500"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-slate-200">
@@ -261,37 +269,106 @@ export function PropertyDetail() {
         )}
 
         {/* Navigation Overlay */}
-        <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-10 bg-gradient-to-b from-black/50 to-transparent">
+        <div className="absolute top-0 left-0 w-full p-4 md:p-6 flex justify-between items-start z-10 bg-gradient-to-b from-black/50 to-transparent">
           <button
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-white hover:text-luxury-gold transition-colors backdrop-blur-sm bg-white/10 px-4 py-2 rounded-full"
+            className="flex items-center gap-2 text-white hover:text-luxury-gold transition-colors backdrop-blur-sm bg-white/10 px-3 py-2 md:px-4 md:py-2 rounded-full text-sm md:text-base"
           >
-            <ArrowLeft className="h-5 w-5" />
-            <span className="font-medium">Back to Collection</span>
+            <ArrowLeft className="h-4 w-4 md:h-5 md:w-5" />
+            <span className="font-medium hidden sm:inline">Back to Collection</span>
+            <span className="font-medium sm:hidden">Back</span>
           </button>
-          <div className="flex gap-3">
+          <div className="flex gap-2 md:gap-3">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors">
-              <Share2 className="h-5 w-5" />
+              <Share2 className="h-4 w-4 md:h-5 md:w-5" />
             </button>
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors">
-              <Heart className="h-5 w-5" />
+              <Heart className="h-4 w-4 md:h-5 md:w-5" />
             </button>
           </div>
         </div>
 
-        {/* Image Thumbnails Overlay */}
+        {/* Arrow Navigation - Desktop */}
         {images.length > 1 && (
-          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 p-2 bg-black/30 backdrop-blur-md rounded-full overflow-x-auto max-w-[90%]">
+          <>
+            <button
+              onClick={previousImage}
+              className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-12 h-12 rounded-full bg-white/90 hover:bg-white text-slate-900 shadow-lg transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 items-center justify-center w-12 h-12 rounded-full bg-white/90 hover:bg-white text-slate-900 shadow-lg transition-all opacity-0 group-hover:opacity-100"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+          </>
+        )}
+
+        {/* Image Counter */}
+        {images.length > 1 && (
+          <div className="absolute top-4 right-4 md:top-auto md:bottom-6 md:right-6 z-20 px-3 py-1.5 bg-black/60 backdrop-blur-sm text-white text-sm font-medium rounded-full">
+            {selectedImageIndex + 1} / {images.length}
+          </div>
+        )}
+
+        {/* Image Thumbnails - Desktop */}
+        {images.length > 1 && (
+          <div className="hidden md:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 gap-2 p-2 bg-black/40 backdrop-blur-md rounded-lg max-w-[90%] overflow-x-auto">
             {images.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setSelectedImageIndex(idx)}
-                className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${idx === selectedImageIndex ? 'border-luxury-gold scale-110' : 'border-transparent opacity-70 hover:opacity-100'
-                  }`}
+                className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                  idx === selectedImageIndex 
+                    ? 'border-luxury-gold scale-105 shadow-lg' 
+                    : 'border-white/30 opacity-60 hover:opacity-100 hover:border-white/60'
+                }`}
               >
-                <img src={img.thumbnail || img.original} alt="" className="w-full h-full object-cover" />
+                <img 
+                  src={img.thumbnail || img.original} 
+                  alt={`View ${idx + 1}`} 
+                  className="w-full h-full object-cover" 
+                />
               </button>
             ))}
+          </div>
+        )}
+
+        {/* Dot Indicators - Mobile */}
+        {images.length > 1 && (
+          <div className="md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedImageIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  idx === selectedImageIndex 
+                    ? 'bg-luxury-gold w-6' 
+                    : 'bg-white/50 hover:bg-white/80'
+                }`}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Swipe Navigation - Mobile */}
+        {images.length > 1 && (
+          <div className="md:hidden absolute inset-0 z-10 flex">
+            <button
+              onClick={previousImage}
+              className="flex-1 cursor-pointer"
+              aria-label="Previous image"
+            />
+            <button
+              onClick={nextImage}
+              className="flex-1 cursor-pointer"
+              aria-label="Next image"
+            />
           </div>
         )}
       </div>
