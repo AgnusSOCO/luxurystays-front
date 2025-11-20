@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { guestyApi } from '../services/guestyApi';
 import type { GuestyListing } from '../types/guesty';
-import { MapPin, Users, Bed, Bath, ArrowLeft, Calendar, DollarSign, Sparkles, Star, Check } from 'lucide-react';
+import { MapPin, Users, Bed, Bath, ArrowLeft, Calendar, Star, Share2, Heart, Wifi, Car, Coffee, Tv } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
-import { Badge } from '../components/ui/badge';
+import { CheckMarkIcon } from '../components/icons/LuxuryIcons';
 
 export function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
@@ -16,7 +15,7 @@ export function PropertyDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  
+
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
   const [guests, setGuests] = useState(1);
@@ -26,7 +25,7 @@ export function PropertyDetail() {
   useEffect(() => {
     const fetchListing = async () => {
       if (!id) return;
-      
+
       try {
         setLoading(true);
         const data = await guestyApi.getListingById(id);
@@ -45,7 +44,7 @@ export function PropertyDetail() {
 
   const handleGetQuote = async () => {
     if (!listing || !checkIn || !checkOut) return;
-    
+
     try {
       setBookingLoading(true);
       const quoteData = await guestyApi.createReservationQuote({
@@ -65,13 +64,10 @@ export function PropertyDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center luxury-bg">
-        <div className="text-center glass rounded-2xl p-16 animate-fade-in border-2 border-amber-400/20">
-          <div className="relative">
-            <div className="animate-spin rounded-full h-24 w-24 border-b-4 border-amber-500 mx-auto"></div>
-            <Sparkles className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-10 w-10 text-amber-500" />
-          </div>
-          <p className="mt-10 text-2xl text-slate-900 font-bold">Loading Exclusive Property...</p>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-luxury-gold mx-auto mb-4"></div>
+          <p className="text-slate-500 font-serif">Loading Residence...</p>
         </div>
       </div>
     );
@@ -79,24 +75,17 @@ export function PropertyDetail() {
 
   if (error || !listing) {
     return (
-      <div className="min-h-screen flex items-center justify-center luxury-bg">
-        <Card className="max-w-lg glass border-2 border-amber-400/20 shadow-2xl animate-fade-in">
-          <CardHeader>
-            <CardTitle className="text-red-600 text-3xl font-bold">Property Not Found</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-slate-800 text-lg">{error || 'This property is no longer available'}</p>
-          </CardContent>
-          <CardFooter>
-            <Button 
-              onClick={() => navigate('/')} 
-              className="w-full h-14 bg-gradient-to-r from-amber-500 via-yellow-600 to-amber-600 hover:from-amber-600 hover:via-yellow-700 hover:to-amber-700 text-slate-900 rounded-xl font-bold"
-            >
-              <ArrowLeft className="mr-2 h-5 w-5" />
-              BACK TO COLLECTION
-            </Button>
-          </CardFooter>
-        </Card>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center max-w-md px-4">
+          <h2 className="text-3xl font-serif text-slate-900 mb-4">Property Not Found</h2>
+          <p className="text-slate-600 mb-8">{error || 'This residence is currently unavailable.'}</p>
+          <Button
+            onClick={() => navigate('/')}
+            className="btn-luxury w-full"
+          >
+            Return to Collection
+          </Button>
+        </div>
       </div>
     );
   }
@@ -104,262 +93,230 @@ export function PropertyDetail() {
   const images = listing.pictures || (listing.picture ? [listing.picture] : []);
   const currentImage = images[selectedImageIndex];
 
+  // Helper to map amenities to icons (simplified)
+  const getAmenityIcon = (amenity: string) => {
+    const lower = amenity.toLowerCase();
+    if (lower.includes('wifi')) return Wifi;
+    if (lower.includes('parking')) return Car;
+    if (lower.includes('coffee')) return Coffee;
+    if (lower.includes('tv')) return Tv;
+    return CheckMarkIcon;
+  };
+
   return (
-    <div className="min-h-screen luxury-bg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Button 
-          onClick={() => navigate('/')} 
-          className="mb-8 glass border-2 border-amber-400/20 hover:border-amber-400/40 hover:shadow-xl transition-all duration-300 h-12 px-6 font-semibold text-slate-900"
-        >
-          <ArrowLeft className="mr-2 h-5 w-5" />
-          Back to Collection
-        </Button>
+    <div className="min-h-screen bg-white pb-24">
+      {/* Hero Image Gallery */}
+      <div className="relative h-[60vh] md:h-[70vh] bg-slate-100 group">
+        {currentImage?.original ? (
+          <img
+            src={currentImage.original}
+            alt={listing.title}
+            className="w-full h-full object-cover transition-transform duration-700"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-slate-200">
+            <MapPin className="h-16 w-16 text-slate-400" />
+          </div>
+        )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          <div className="lg:col-span-2">
-            <Card className="overflow-hidden glass border-2 border-amber-400/20 shadow-2xl animate-fade-in">
-              <div className="relative h-96 md:h-[550px] bg-gradient-to-br from-slate-200 to-slate-300">
-                {currentImage?.original ? (
-                  <img
-                    src={currentImage.original}
-                    alt={listing.title || 'Property'}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <MapPin className="h-24 w-24 text-slate-400" />
+        {/* Navigation Overlay */}
+        <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-10 bg-gradient-to-b from-black/50 to-transparent">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-white hover:text-luxury-gold transition-colors backdrop-blur-sm bg-white/10 px-4 py-2 rounded-full"
+          >
+            <ArrowLeft className="h-5 w-5" />
+            <span className="font-medium">Back to Collection</span>
+          </button>
+          <div className="flex gap-3">
+            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors">
+              <Share2 className="h-5 w-5" />
+            </button>
+            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 transition-colors">
+              <Heart className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Image Thumbnails Overlay */}
+        {images.length > 1 && (
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 p-2 bg-black/30 backdrop-blur-md rounded-full overflow-x-auto max-w-[90%]">
+            {images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedImageIndex(idx)}
+                className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${idx === selectedImageIndex ? 'border-luxury-gold scale-110' : 'border-transparent opacity-70 hover:opacity-100'
+                  }`}
+              >
+                <img src={img.thumbnail || img.original} alt="" className="w-full h-full object-cover" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div className="container-luxury -mt-12 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Header Card */}
+            <div className="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-serif text-slate-900 mb-2">
+                    {listing.title || listing.nickname}
+                  </h1>
+                  <div className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="h-5 w-5 text-luxury-gold" />
+                    <span>{listing.address?.full || `${listing.address?.city}, ${listing.address?.state}`}</span>
                   </div>
-                )}
-                <div className="absolute top-6 left-6">
-                  <Badge className="bg-slate-900/90 text-amber-400 border border-amber-400/50 shadow-xl text-base px-5 py-2.5 font-bold backdrop-blur-sm">
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    EXCLUSIVE PROPERTY
-                  </Badge>
                 </div>
-                {listing.prices?.basePrice && (
-                  <div className="absolute bottom-6 right-6 bg-gradient-to-r from-amber-400 to-yellow-500 px-7 py-4 rounded-2xl shadow-2xl">
-                    <span className="text-4xl font-bold text-slate-900">
-                      ${listing.prices.basePrice}
-                    </span>
-                    <span className="text-lg text-slate-800 font-semibold">/night</span>
+                <div className="flex flex-col items-end">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Star className="h-5 w-5 fill-luxury-gold text-luxury-gold" />
+                    <span className="font-bold text-slate-900">5.0</span>
+                    <span className="text-slate-500 text-sm">(12 reviews)</span>
                   </div>
-                )}
+                </div>
               </div>
-              
-              {images.length > 1 && (
-                <div className="p-6 bg-white/80 backdrop-blur-sm border-t-2 border-amber-400/10">
-                  <div className="flex gap-4 overflow-x-auto pb-2">
-                    {images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setSelectedImageIndex(idx)}
-                        className={`flex-shrink-0 w-28 h-28 rounded-xl overflow-hidden border-3 transition-all duration-300 ${
-                          idx === selectedImageIndex 
-                            ? 'border-amber-500 shadow-xl scale-105' 
-                            : 'border-slate-200 hover:border-amber-400'
-                        }`}
-                      >
-                        <img
-                          src={img.thumbnail || img.original}
-                          alt={`View ${idx + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </button>
-                    ))}
-                  </div>
+
+              <div className="grid grid-cols-3 gap-4 py-6 border-t border-b border-slate-100">
+                <div className="flex flex-col items-center text-center p-4 bg-slate-50 rounded-xl">
+                  <Users className="h-6 w-6 text-slate-700 mb-2" />
+                  <span className="text-sm text-slate-500 uppercase tracking-wider font-medium">Guests</span>
+                  <span className="font-bold text-slate-900">{listing.accommodates} Max</span>
                 </div>
-              )}
-            </Card>
-
-            <Card className="mt-8 glass border-2 border-amber-400/20 shadow-2xl animate-fade-in">
-              <CardHeader className="pb-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-4xl md:text-5xl mb-4 text-slate-900 font-bold">
-                      {listing.title || listing.nickname || 'Luxury Property'}
-                    </CardTitle>
-                    {listing.address?.city && (
-                      <CardDescription className="flex items-center gap-2 text-xl text-slate-600">
-                        <MapPin className="h-6 w-6 text-amber-600" />
-                        <span className="font-medium">{listing.address.full || `${listing.address.city}, ${listing.address.state || listing.address.country}`}</span>
-                      </CardDescription>
-                    )}
-                  </div>
-                  <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} className="h-6 w-6 text-amber-400 fill-amber-400" />
-                    ))}
-                  </div>
+                <div className="flex flex-col items-center text-center p-4 bg-slate-50 rounded-xl">
+                  <Bed className="h-6 w-6 text-slate-700 mb-2" />
+                  <span className="text-sm text-slate-500 uppercase tracking-wider font-medium">Bedrooms</span>
+                  <span className="font-bold text-slate-900">{listing.bedrooms}</span>
                 </div>
-              </CardHeader>
-
-              <CardContent>
-                <div className="flex flex-wrap gap-4 mb-10">
-                  {listing.bedrooms && (
-                    <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 px-6 py-4 rounded-xl">
-                      <Bed className="h-7 w-7 text-slate-700" />
-                      <span className="font-bold text-slate-900 text-lg">{listing.bedrooms} Bedrooms</span>
-                    </div>
-                  )}
-                  {listing.bathrooms && (
-                    <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 px-6 py-4 rounded-xl">
-                      <Bath className="h-7 w-7 text-slate-700" />
-                      <span className="font-bold text-slate-900 text-lg">{listing.bathrooms} Bathrooms</span>
-                    </div>
-                  )}
-                  {listing.accommodates && (
-                    <div className="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 px-6 py-4 rounded-xl">
-                      <Users className="h-7 w-7 text-slate-700" />
-                      <span className="font-bold text-slate-900 text-lg">Up to {listing.accommodates} Guests</span>
-                    </div>
-                  )}
+                <div className="flex flex-col items-center text-center p-4 bg-slate-50 rounded-xl">
+                  <Bath className="h-6 w-6 text-slate-700 mb-2" />
+                  <span className="text-sm text-slate-500 uppercase tracking-wider font-medium">Bathrooms</span>
+                  <span className="font-bold text-slate-900">{listing.bathrooms}</span>
                 </div>
+              </div>
+            </div>
 
-                {listing.publicDescription?.summary && (
-                  <div className="mb-8 p-8 bg-white/90 rounded-2xl border-2 border-amber-400/20 shadow-lg">
-                    <h3 className="text-3xl font-bold mb-5 text-slate-900 flex items-center gap-3">
-                      <Sparkles className="h-7 w-7 text-amber-600" />
-                      About This Property
-                    </h3>
-                    <p className="text-slate-700 whitespace-pre-line leading-relaxed text-lg">{listing.publicDescription.summary}</p>
-                  </div>
-                )}
+            {/* Description */}
+            <div className="prose prose-slate max-w-none">
+              <h2 className="text-2xl font-serif text-slate-900 mb-4">About This Residence</h2>
+              <p className="text-slate-600 leading-relaxed whitespace-pre-line text-lg">
+                {listing.publicDescription?.summary}
+              </p>
+            </div>
 
-                {listing.amenities && listing.amenities.length > 0 && (
-                  <div className="p-8 bg-white/90 rounded-2xl border-2 border-amber-400/20 shadow-lg">
-                    <h3 className="text-3xl font-bold mb-6 text-slate-900 flex items-center gap-3">
-                      <Star className="h-7 w-7 text-amber-600" />
-                      Exclusive Amenities
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {listing.amenities.slice(0, 10).map((amenity, idx) => (
-                        <div key={idx} className="flex items-center gap-3 text-slate-700 bg-slate-50 px-5 py-3 rounded-lg border border-slate-200">
-                          <Check className="h-5 w-5 text-amber-600 flex-shrink-0" />
-                          <span className="font-semibold">{amenity}</span>
-                        </div>
-                      ))}
+            {/* Amenities */}
+            <div>
+              <h2 className="text-2xl font-serif text-slate-900 mb-6">Amenities</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {listing.amenities?.slice(0, 12).map((amenity, idx) => {
+                  const Icon = getAmenityIcon(amenity);
+                  return (
+                    <div key={idx} className="flex items-center gap-3 p-4 rounded-xl border border-slate-200 hover:border-luxury-gold/50 hover:bg-luxury-champagne/5 transition-colors">
+                      <Icon className="h-5 w-5 text-luxury-gold" />
+                      <span className="text-slate-700 font-medium">{amenity}</span>
                     </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
+          {/* Sidebar Booking Widget */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-8 glass border-2 border-amber-400/20 shadow-2xl animate-fade-in">
-              <CardHeader className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-t-xl border-b-2 border-amber-400/20 pb-6">
-                <CardTitle className="flex items-center justify-between">
-                  <span className="text-2xl text-slate-900 flex items-center gap-2 font-bold">
-                    <Sparkles className="h-6 w-6 text-amber-600" />
-                    Reserve Your Stay
+            <div className="sticky top-24 bg-white p-6 rounded-2xl shadow-2xl border border-slate-100">
+              <div className="flex justify-between items-end mb-6 pb-6 border-b border-slate-100">
+                <div>
+                  <span className="text-3xl font-serif font-bold text-slate-900">
+                    ${listing.prices?.basePrice}
                   </span>
-                  {listing.prices?.basePrice && (
-                    <div className="text-right">
-                      <div className="text-4xl font-bold text-slate-900">
-                        ${listing.prices.basePrice}
-                      </div>
-                      <div className="text-sm text-slate-600 font-semibold">per night</div>
+                  <span className="text-slate-500 ml-1">/ night</span>
+                </div>
+                <div className="text-sm text-luxury-gold font-medium uppercase tracking-wider">
+                  Best Rate Guarantee
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-wider text-slate-500 font-bold">Check-in</Label>
+                    <div className="relative">
+                      <Input
+                        type="date"
+                        value={checkIn}
+                        onChange={(e) => setCheckIn(e.target.value)}
+                        min={new Date().toISOString().split('T')[0]}
+                        className="pl-10 h-12 bg-slate-50 border-slate-200 focus:border-luxury-gold"
+                      />
+                      <Calendar className="absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
                     </div>
-                  )}
-                </CardTitle>
-              </CardHeader>
-
-              <CardContent className="space-y-6 pt-8">
-                <div>
-                  <Label htmlFor="checkIn" className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-amber-600" />
-                    Check-in Date
-                  </Label>
-                  <Input
-                    id="checkIn"
-                    type="date"
-                    value={checkIn}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    min={new Date().toISOString().split('T')[0]}
-                    className="h-14 text-base border-2 border-slate-200 focus:border-amber-500 rounded-xl bg-white font-medium text-slate-900"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="checkOut" className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-amber-600" />
-                    Check-out Date
-                  </Label>
-                  <Input
-                    id="checkOut"
-                    type="date"
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    min={checkIn || new Date().toISOString().split('T')[0]}
-                    className="h-14 text-base border-2 border-slate-200 focus:border-amber-500 rounded-xl bg-white font-medium text-slate-900"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="guests" className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
-                    <Users className="h-5 w-5 text-amber-600" />
-                    Number of Guests
-                  </Label>
-                  <Input
-                    id="guests"
-                    type="number"
-                    value={guests}
-                    onChange={(e) => setGuests(parseInt(e.target.value) || 1)}
-                    min="1"
-                    max={listing.accommodates || 10}
-                    className="h-14 text-base border-2 border-slate-200 focus:border-amber-500 rounded-xl bg-white font-medium text-slate-900"
-                  />
-                </div>
-
-                <Button 
-                  onClick={handleGetQuote}
-                  disabled={!checkIn || !checkOut || bookingLoading}
-                  className="w-full h-16 text-lg bg-gradient-to-r from-amber-500 via-yellow-600 to-amber-600 hover:from-amber-600 hover:via-yellow-700 hover:to-amber-700 text-slate-900 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 font-bold tracking-wide"
-                >
-                  <DollarSign className="mr-2 h-6 w-6" />
-                  {bookingLoading ? 'CALCULATING...' : 'GET PRICE QUOTE'}
-                </Button>
-
-                {quote && (
-                  <div className="mt-8 p-7 bg-gradient-to-br from-emerald-50 to-green-50 border-2 border-emerald-300 rounded-2xl shadow-xl animate-fade-in">
-                    <h4 className="font-bold text-2xl text-emerald-900 mb-6 flex items-center gap-2">
-                      <Check className="h-7 w-7" />
-                      Price Breakdown
-                    </h4>
-                    <div className="space-y-4 text-base">
-                      {quote.nightsCount && (
-                        <div className="flex justify-between items-center py-2 border-b border-emerald-200">
-                          <span className="text-slate-700 font-semibold">Nights:</span>
-                          <span className="font-bold text-slate-900 text-lg">{quote.nightsCount}</span>
-                        </div>
-                      )}
-                      {quote.money?.fareAccommodation && (
-                        <div className="flex justify-between items-center py-2 border-b border-emerald-200">
-                          <span className="text-slate-700 font-semibold">Accommodation:</span>
-                          <span className="font-bold text-slate-900 text-lg">${quote.money.fareAccommodation}</span>
-                        </div>
-                      )}
-                      {quote.money?.cleaningFee && (
-                        <div className="flex justify-between items-center py-2 border-b border-emerald-200">
-                          <span className="text-slate-700 font-semibold">Cleaning Fee:</span>
-                          <span className="font-bold text-slate-900 text-lg">${quote.money.cleaningFee}</span>
-                        </div>
-                      )}
-                      {quote.money?.totalPrice && (
-                        <div className="flex justify-between items-center pt-5 border-t-2 border-emerald-400">
-                          <span className="text-xl font-bold text-emerald-900">Total:</span>
-                          <span className="text-3xl font-bold text-emerald-900">${quote.money.totalPrice} {quote.money.currency}</span>
-                        </div>
-                      )}
-                    </div>
-                    <Button className="w-full mt-7 h-16 text-lg bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 font-bold tracking-wide">
-                      <Calendar className="mr-2 h-6 w-6" />
-                      PROCEED TO BOOKING
-                    </Button>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                  <div className="space-y-2">
+                    <Label className="text-xs uppercase tracking-wider text-slate-500 font-bold">Check-out</Label>
+                    <div className="relative">
+                      <Input
+                        type="date"
+                        value={checkOut}
+                        onChange={(e) => setCheckOut(e.target.value)}
+                        min={checkIn || new Date().toISOString().split('T')[0]}
+                        className="pl-10 h-12 bg-slate-50 border-slate-200 focus:border-luxury-gold"
+                      />
+                      <Calendar className="absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-xs uppercase tracking-wider text-slate-500 font-bold">Guests</Label>
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      value={guests}
+                      onChange={(e) => setGuests(parseInt(e.target.value) || 1)}
+                      min="1"
+                      max={listing.accommodates || 10}
+                      className="pl-10 h-12 bg-slate-50 border-slate-200 focus:border-luxury-gold"
+                    />
+                    <Users className="absolute left-3 top-3.5 h-5 w-5 text-slate-400" />
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                onClick={handleGetQuote}
+                disabled={!checkIn || !checkOut || bookingLoading}
+                className="w-full btn-luxury h-14 text-lg mb-4"
+              >
+                {bookingLoading ? 'Calculating...' : 'Check Availability'}
+              </Button>
+
+              <p className="text-center text-sm text-slate-400 mb-6">
+                You won't be charged yet
+              </p>
+
+              {quote && (
+                <div className="bg-slate-50 p-4 rounded-xl space-y-3 animate-fade-in">
+                  <div className="flex justify-between text-slate-600">
+                    <span>${listing.prices?.basePrice} x {quote.nightsCount} nights</span>
+                    <span>${quote.money?.fareAccommodation}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-600">
+                    <span>Cleaning fee</span>
+                    <span>${quote.money?.cleaningFee}</span>
+                  </div>
+                  <div className="pt-3 border-t border-slate-200 flex justify-between font-bold text-slate-900 text-lg">
+                    <span>Total</span>
+                    <span>${quote.money?.totalPrice}</span>
+                  </div>
+                  <Button className="w-full btn-luxury mt-4">
+                    Reserve Now
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
