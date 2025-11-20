@@ -1,0 +1,218 @@
+You are a senior front-end/UI engineer and product designer tasked with **redesigning the existing Luxury Stays Club website** to look and feel like a top-tier, best-in-class luxury brand in the short-term rental and property management space.
+
+Your #1 rule:
+- **Do NOT break any existing functionality.**
+- Preserve all current behavior, routes, forms, and interactions.
+- If JS hooks/IDs/classes look “functional” (used by scripts), keep them or refactor carefully without changing behavior.
+
+Brand & Business Context
+Luxury Stays Club is a **family-owned luxury property management company in Utah**, focused on:
+- High-end luxury properties (Park City, Deer Valley, Heber City, etc.)
+- Full-service management for owners
+- Hotel-like experience for guests
+- 24/7 concierge and white-glove service
+
+Key differentiators (these should be visually and structurally highlighted in the design):
+- Luxury Experience
+- Local Expertise
+- 24/7 Concierge
+- Comprehensive Property Management
+- Owner Benefits (revenue optimization, reporting, care)
+- “Family-owned” & “premium but warm” feel
+
+You may refine copy lightly for clarity and conversion, but **do not change the core meaning** of the provided text.
+
+--------------------------------------------------
+OBJECTIVE
+--------------------------------------------------
+Transform the current site into a **high-converting, ultra-luxurious, visually stunning** landing & marketing experience that:
+
+1. Positions Luxury Stays Club as a **leader in luxury short-term rental & property management** in Utah.
+2. Convinces:
+   - Property owners to inquire / contact for management services.
+   - Guests that these stays are curated, hotel-level luxury experiences.
+3. Uses **high-quality design, imagery, SVG assets, and animations** that feel premium, calm, and trustworthy.
+
+--------------------------------------------------
+VISUAL DESIGN & BRANDING
+--------------------------------------------------
+Create a refined luxury visual direction:
+
+- Color palette (example direction; you can adjust cohesively):
+  - Deep base: charcoal / deep navy / rich evergreen.
+  - Accent: champagne gold / warm beige / muted bronze.
+  - Neutrals: off-white, soft gray, subtle warm tones.
+- Typography:
+  - Elegant serif for headings (luxury, editorial feel).
+  - Clean sans-serif for body copy (readable, modern).
+- Overall style:
+  - High-end hospitality / boutique hotel aesthetic.
+  - Minimal, airy layout with generous whitespace.
+  - Clear visual hierarchy and large, confident headlines.
+- Use consistent design tokens for:
+  - Colors, spacing, radii, font sizes, etc.
+
+The site should feel like:
+“Luxury Stays Club is the Four Seasons of property management in Utah.”
+
+--------------------------------------------------
+LAYOUT & UX STRUCTURE
+--------------------------------------------------
+Keep the **core sections and content** but reframe them into a clearer, more conversion-oriented structure:
+
+Recommended structure:
+1. Hero Section
+   - Strong headline emphasizing luxury property management in Utah.
+   - Subheadline summarizing value to property owners.
+   - Primary CTA (e.g., “Schedule a Consultation”, “Get a Management Proposal”).
+   - Secondary CTA (e.g., “View Our Services”).
+   - Background: high-end property imagery + subtle overlay + custom SVG accents.
+
+2. Trust & Positioning Strip
+   - Short row highlighting: “Family-Owned”, “Utah Luxury Specialists”, “24/7 Concierge”, etc.
+   - Use icons + short labels.
+
+3. Services Overview
+   - “Comprehensive Property Management” broken into:
+     - Property Care
+     - Guest Services
+     - Owner Benefits
+   - Each in its own card/section with icons, short bullet lists, and clear headings.
+
+4. “About Luxury Stays Club” / Our Story
+   - Story, legacy of excellence, family-owned note.
+   - Visuals: founders/family concept, Utah landscapes, luxury interiors.
+
+5. “Why Choose Luxury Stays Club?”
+   - 3–4 highlighted pillars:
+     - Luxury Focus
+     - Local Expertise
+     - Full Service
+     - Results Driven
+   - Each with strong supporting copy & iconography.
+
+6. Commitment to Excellence
+   - Quality Assurance, Guest Experience, Owner Benefits sections.
+   - Possibly a timeline or “how we work” 3-step or 4-step visual.
+
+7. High-Converting Call-to-Action Section
+   - Repeated CTA near bottom:
+     - “Ready to elevate your property?”
+     - “Request a Management Consultation” / “Contact Our Team”.
+   - Short form or clear link to form.
+
+8. Contact & Footer
+   - Address, email, etc. as provided.
+   - Clean, minimal, luxurious footer design.
+
+**Mobile-first:** ensure all layouts look **excellent on mobile**:
+- Stack content gracefully.
+- Keep headings readable.
+- Make CTAs large and thumb-friendly.
+
+--------------------------------------------------
+CUSTOM SVG ASSETS & IMAGERY
+--------------------------------------------------
+Build a cohesive set of **custom SVG assets** that support the brand:
+
+Types of SVGs:
+- Hero decorative shapes: subtle line art of mountains, rooftops, or Utah-inspired contours.
+- Service icons:
+  - Property Care (house/maintenance icon)
+  - Guest Services (bell/concierge icon)
+  - Owner Benefits (chart/graph icon)
+  - 24/7 Concierge (clock/phone icon)
+- “Luxury” details:
+  - Minimalist line art of keys, door hangers, skyline silhouettes, hot tubs, etc.
+- Section dividers:
+  - Soft curves or subtle line patterns for transitions between sections.
+
+Requirements:
+- SVGs must be:
+  - Responsive (proper viewBox)
+  - Lightweight and optimized
+  - Using `currentColor` where possible
+- Use them as inline SVGs or components per the existing stack.
+- Imagery:
+  - Use/assume **high-quality photography** of:
+    - Luxury interiors
+    - Mountain/lake views from Utah
+    - Cozy but upscale details (fireplaces, hot tubs, etc.)
+
+--------------------------------------------------
+ANIMATIONS & MICROINTERACTIONS
+--------------------------------------------------
+Introduce **subtle, elegant animations** that enhance the luxury feel without being flashy:
+
+- Page load:
+  - Soft fade-in of hero copy and CTAs.
+- Scroll-based:
+  - Section titles and cards gently fade/slide into view.
+- Hover states:
+  - Cards slightly lift + shadow/elevation.
+  - Buttons with smooth color/outline transitions.
+- SVGs:
+  - Minimal motion details (e.g., shimmer on dividers, soft parallax on hero art).
+- Performance:
+  - Favor CSS transforms / opacity.
+  - Keep animations light for mobile devices.
+
+Avoid:
+- Overly bouncy or cartoonish animations.
+- Anything that cheapens the luxury feel.
+
+--------------------------------------------------
+CONVERSION OPTIMIZATION
+--------------------------------------------------
+The page must be **highly converting**, especially for property owners.
+
+Add/optimize:
+- Clear primary CTA repeated across page.
+- Short “What you get as an owner” summary near top.
+- Simple “How it works” or “Our process” 3-step section:
+  1. Schedule a call
+  2. We evaluate and onboard your property
+  3. You earn more, we handle everything
+- Trust elements:
+  - “Family-owned in Utah”
+  - “Specialized in Park City, Deer Valley, Heber City”
+  - Optional: placeholder for reviews / testimonials / logos.
+
+Forms:
+- Keep the contact form **fully functional** (don’t break existing behavior).
+- Improve design & UX:
+  - Larger, well-labeled inputs.
+  - Clear validation states and error messages.
+  - Luxurious styling (borders, focus states, subtle shadows).
+- Make it extremely easy to reach out:
+  - Clearly show email, maybe add “Copy email” or “Click to email” if appropriate.
+  - Consider a short inline inquiry form near hero or CTA block if not already present.
+
+--------------------------------------------------
+TECHNICAL & IMPLEMENTATION GUIDELINES
+--------------------------------------------------
+- Do NOT remove or alter any code required for core functionality.
+- You may:
+  - Refactor markup structure for better semantics and design.
+  - Add classNames, wrappers, and components as needed.
+- Ensure:
+  - Responsiveness (mobile, tablet, desktop).
+  - Accessibility best practices:
+    - Proper heading hierarchy
+    - Alt text for images
+    - Sufficient color contrast
+    - Focus states for interactive elements
+- Keep code:
+  - Clean and modular.
+  - Using existing stack conventions (CSS/Tailwind/React/etc., depending on the project).
+
+--------------------------------------------------
+TASK
+--------------------------------------------------
+Using all of the above:
+
+1. **Redesign** the existing Luxury Stays Club page to feel truly luxurious and modern, without losing any functionality.
+2. **Integrate custom SVG assets** and upgraded imagery throughout the layout.
+3. **Add tasteful animations and microinteractions** that support the luxury feel.
+4. **Optimize the page for conversion**, especially for property owners looking for high-end management.
+5. Deliver updated code for all relevant components/styles/assets while keeping the site fully functional and responsive.

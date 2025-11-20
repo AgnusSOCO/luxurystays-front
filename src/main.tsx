@@ -1,0 +1,26 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './index.css'
+import { Layout } from './components/layout/Layout'
+import { Home } from './pages/Home'
+import { Contact } from './pages/Contact'
+import { PropertyManagement } from './pages/PropertyManagement'
+import { About } from './pages/About'
+import { PropertyDetail } from './pages/PropertyDetail'
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="management" element={<PropertyManagement />} />
+          <Route path="about" element={<About />} />
+          <Route path="property/:id" element={<PropertyDetail />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>,
+)
