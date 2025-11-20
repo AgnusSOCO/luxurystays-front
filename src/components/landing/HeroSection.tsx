@@ -17,7 +17,7 @@ export const HeroSection: React.FC = () => {
             <div
                 className="absolute inset-0 z-0 parallax-bg"
                 style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1605540436563-5bca919ae766?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
                 }}
             >
                 <div className="absolute inset-0 bg-black/40" />
