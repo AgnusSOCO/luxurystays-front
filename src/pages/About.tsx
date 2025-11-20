@@ -5,13 +5,13 @@ export const About = () => {
         {
             name: "Jorge Cordero",
             role: "CEO & Founder",
-            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "https://media.licdn.com/dms/image/v2/C4E03AQFAkRLg1SNNtw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1518646811741?e=1765411200&v=beta&t=xuRzjDIzeNM3_22ARmP3KARfNDc33-AFEjydFJWlF08",
             linkedin: "https://www.linkedin.com/in/jorge-c-804a677/"
         },
         {
             name: "Juan Cordero",
             role: "CTO",
-            image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+            image: "https://icons.veryicon.com/png/o/miscellaneous/rookie-official-icon-gallery/225-default-avatar.png",
             linkedin: "https://www.linkedin.com/in/juansoco/"
         }
     ];
