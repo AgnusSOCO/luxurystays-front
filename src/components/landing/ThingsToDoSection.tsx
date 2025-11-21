@@ -157,7 +157,7 @@ export const ThingsToDoSection: React.FC = () => {
             name: 'Fishing at Jordanelle',
             category: 'water',
             description: 'World-class fishing for rainbow trout, brown trout, and smallmouth bass.',
-            image: 'https://images.unsplash.com/photo-1545450660-e0c33d08d2d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            image: 'https://images.unsplash.com/photo-1534043464124-3be32fe000c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: 'On-site',
             icon: Waves
         },
@@ -229,7 +229,7 @@ export const ThingsToDoSection: React.FC = () => {
             name: 'Hot Air Balloon Rides',
             category: 'outdoor',
             description: 'Soar above the Wasatch Mountains and valleys for an unforgettable aerial adventure.',
-            image: 'https://images.unsplash.com/photo-1498550744921-75f79806b163?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: '10 miles',
             icon: Camera
         }
