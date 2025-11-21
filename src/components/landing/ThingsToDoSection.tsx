@@ -238,7 +238,7 @@ export const ThingsToDoSection: React.FC = () => {
                     </p>
                     <a
                         href="#listings"
-                        className="inline-block px-8 py-4 bg-luxury-gold hover:bg-amber-600 text-white font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="inline-block px-8 py-4 bg-luxury-gold hover:bg-amber-600 text-slate-900 font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
                         Book Your Stay
                     </a>
