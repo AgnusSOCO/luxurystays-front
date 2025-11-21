@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { Mountain, Utensils, Wine, Bike, Camera, Music } from 'lucide-react';
+import { Mountain, Utensils, Wine, Bike, Camera, Music, Waves, Users, PartyPopper } from 'lucide-react';
 
 interface Activity {
     id: string;
     name: string;
-    category: 'ski' | 'dining' | 'bars' | 'activities';
+    category: 'ski' | 'dining' | 'nightlife' | 'family' | 'water' | 'outdoor';
     description: string;
     image: string;
     distance: string;
@@ -82,47 +82,155 @@ export const ThingsToDoSection: React.FC = () => {
         },
         {
             id: '8',
+            name: 'Tupelo',
+            category: 'dining',
+            description: 'Southern-inspired cuisine with a modern twist in a warm, inviting atmosphere.',
+            image: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '4 miles',
+            icon: Utensils
+        },
+        {
+            id: '9',
             name: 'High West Distillery',
-            category: 'bars',
+            category: 'nightlife',
             description: 'Award-winning whiskey distillery with tastings and tours in a historic livery stable.',
             image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: '4 miles',
             icon: Wine
         },
         {
-            id: '9',
+            id: '10',
             name: 'No Name Saloon',
-            category: 'bars',
+            category: 'nightlife',
             description: 'Historic watering hole with live music, craft beers, and a lively atmosphere.',
             image: 'https://images.unsplash.com/photo-1572116469696-31de0f17cc34?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: '3 miles',
             icon: Music
         },
         {
-            id: '10',
+            id: '11',
+            name: 'O.P. Rockwell',
+            category: 'nightlife',
+            description: 'Upscale cocktail lounge with craft cocktails, live entertainment, and mountain views.',
+            image: 'https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '3 miles',
+            icon: Wine
+        },
+        {
+            id: '12',
+            name: 'Downstairs at Park City',
+            category: 'nightlife',
+            description: 'Vibrant nightclub with DJs, dancing, and a sophisticated après-ski scene.',
+            image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '4 miles',
+            icon: PartyPopper
+        },
+        {
+            id: '13',
+            name: 'Cisero\'s Ristorante & Nightclub',
+            category: 'nightlife',
+            description: 'Italian dining by day, energetic nightclub by night with live music and dancing.',
+            image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '3 miles',
+            icon: Music
+        },
+        {
+            id: '14',
+            name: 'Jordanelle Reservoir',
+            category: 'water',
+            description: 'Stunning reservoir right in front of our properties. Perfect for boating, paddleboarding, fishing, and swimming.',
+            image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: 'On-site',
+            icon: Waves
+        },
+        {
+            id: '15',
+            name: 'Kayaking & Paddleboarding',
+            category: 'water',
+            description: 'Explore the pristine waters of Jordanelle with kayak and paddleboard rentals available nearby.',
+            image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: 'On-site',
+            icon: Waves
+        },
+        {
+            id: '16',
+            name: 'Fishing at Jordanelle',
+            category: 'water',
+            description: 'World-class fishing for rainbow trout, brown trout, and smallmouth bass.',
+            image: 'https://images.unsplash.com/photo-1545450660-e0c33d08d2d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: 'On-site',
+            icon: Waves
+        },
+        {
+            id: '17',
+            name: 'Utah Olympic Park',
+            category: 'family',
+            description: 'Experience Olympic sports including bobsled rides, zip lines, and freestyle shows.',
+            image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '6 miles',
+            icon: Users
+        },
+        {
+            id: '18',
+            name: 'Park City Alpine Coaster',
+            category: 'family',
+            description: 'Thrilling alpine coaster ride through the mountains with stunning views.',
+            image: 'https://images.unsplash.com/photo-1509023464722-18d996393ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '5 miles',
+            icon: Users
+        },
+        {
+            id: '19',
+            name: 'Swaner Preserve & EcoCenter',
+            category: 'family',
+            description: 'Nature preserve with wildlife viewing, hiking trails, and educational programs for all ages.',
+            image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '2 miles',
+            icon: Camera
+        },
+        {
+            id: '20',
+            name: 'Gorgoza Park',
+            category: 'family',
+            description: 'Year-round tubing park with summer activities including mini golf and bungee trampolines.',
+            image: 'https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '7 miles',
+            icon: Users
+        },
+        {
+            id: '21',
             name: 'Mountain Biking Trails',
-            category: 'activities',
+            category: 'outdoor',
             description: 'Over 400 miles of world-class mountain biking trails for all skill levels.',
             image: 'https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: 'Various',
             icon: Bike
         },
         {
-            id: '11',
-            name: 'Utah Olympic Park',
-            category: 'activities',
-            description: 'Experience Olympic sports including bobsled rides, zip lines, and freestyle shows.',
-            image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-            distance: '6 miles',
-            icon: Camera
-        },
-        {
-            id: '12',
+            id: '22',
             name: 'Historic Main Street',
-            category: 'activities',
+            category: 'outdoor',
             description: 'Charming street lined with galleries, boutiques, and restaurants in Victorian buildings.',
             image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
             distance: '3 miles',
+            icon: Camera
+        },
+        {
+            id: '23',
+            name: 'Hiking Trails',
+            category: 'outdoor',
+            description: 'Explore scenic trails ranging from easy walks to challenging mountain hikes with breathtaking views.',
+            image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: 'Various',
+            icon: Mountain
+        },
+        {
+            id: '24',
+            name: 'Hot Air Balloon Rides',
+            category: 'outdoor',
+            description: 'Soar above the Wasatch Mountains and valleys for an unforgettable aerial adventure.',
+            image: 'https://images.unsplash.com/photo-1498550744921-75f79806b163?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+            distance: '10 miles',
             icon: Camera
         }
     ];
@@ -131,8 +239,10 @@ export const ThingsToDoSection: React.FC = () => {
         { id: 'all', label: 'All', icon: null },
         { id: 'ski', label: 'Ski Resorts', icon: Mountain },
         { id: 'dining', label: 'Dining', icon: Utensils },
-        { id: 'bars', label: 'Bars & Nightlife', icon: Wine },
-        { id: 'activities', label: 'Activities', icon: Bike }
+        { id: 'nightlife', label: 'Nightlife', icon: Wine },
+        { id: 'water', label: 'Water Activities', icon: Waves },
+        { id: 'family', label: 'Family Fun', icon: Users },
+        { id: 'outdoor', label: 'Outdoor Adventures', icon: Bike }
     ];
 
     const filteredActivities = selectedCategory === 'all' 
@@ -167,7 +277,7 @@ export const ThingsToDoSection: React.FC = () => {
                                 onClick={() => setSelectedCategory(category.id)}
                                 className={`px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
                                     selectedCategory === category.id
-                                        ? 'bg-luxury-gold text-white shadow-lg scale-105'
+                                        ? 'bg-luxury-gold text-slate-900 shadow-lg scale-105'
                                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                                 }`}
                             >
