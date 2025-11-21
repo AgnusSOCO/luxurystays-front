@@ -28,8 +28,8 @@ export const PropertyManagement = () => {
             <section className="relative py-24 bg-slate-900 text-white overflow-hidden">
                 <div className="absolute inset-0 opacity-30">
                     <img
-                        src="https://images.unsplash.com/photo-1600596542815-2a4d9fddace7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
-                        alt="Luxury Interior"
+                        src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
+                        alt="Luxury Mountain Property"
                         className="w-full h-full object-cover"
                     />
                 </div>
