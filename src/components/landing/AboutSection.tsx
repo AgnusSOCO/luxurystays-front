@@ -10,8 +10,8 @@ export const AboutSection: React.FC = () => {
                     <div className="w-full lg:w-1/2 relative">
                         <div className="grid grid-cols-2 gap-4">
                             <img
-                                src="https://images.unsplash.com/photo-1600596542815-2a4d9f875c59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                                alt="Luxury Interior"
+                                src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                alt="Luxury Living Room"
                                 className="rounded-lg shadow-xl w-full h-64 object-cover transform translate-y-8"
                             />
                             <img
